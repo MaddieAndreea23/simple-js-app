@@ -23,6 +23,18 @@ var repository = [
     abilities: ["flash-fire", "guts"]
   }
 ];
+repository.forEach(({
+  name,
+  height,
+  weight,
+  abilities: [firstItemFromAbilities, secondItemFromAbilities]
+}) => {
+  document.write("<br/> <br/> name: " + name + "<br/> height: " + height + "<br/> weight: " + weight + "<br/> abilities: " + firstItemFromAbilities + ", " + secondItemFromAbilities);
+});
+
+
+
+/*
 for (var i = 0; i < repository.length; i++) {
   var item = repository[i];
   if (item.height > 1) {
@@ -31,3 +43,4 @@ for (var i = 0; i < repository.length; i++) {
     document.write(item.name + "(height: " + item.height + ") <br/>");
   }
 }
+*/
