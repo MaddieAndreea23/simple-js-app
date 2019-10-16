@@ -35,7 +35,7 @@ var pokemonRepository = (function () {
 })();
 
 console.log(pokemonRepository.getAll());
-pokemonRepository.add({ name: 'Caterpie' });
+pokemonRepository.add({ name: '', height: '', weight: '', abilities: [] });
 
 pokemonRepository.getAll().forEach(({
   name,
