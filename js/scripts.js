@@ -21,7 +21,8 @@ var pokemonRepository = (function () {
   }];
 
   function add(pokemon) {
-    repository.push(pokemon);
+      pokemon. abilities = pokemon. abilities || []
+      repository.push(pokemon);
   }
 
   function getAll() {
@@ -30,18 +31,37 @@ var pokemonRepository = (function () {
 
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem,
   };
 })();
 
 console.log(pokemonRepository.getAll());
-pokemonRepository.add({ name: '', height: '', weight: '', abilities: [] });
-
-pokemonRepository.getAll().forEach(({
-  name,
-  height,
-  weight,
-  abilities: [firstItemFromAbilities, secondItemFromAbilities]
-}) => {
-  document.write("<br/> <br/> name: " + name + "<br/> height: " + height + "<br/> weight: " + weight + "<br/> abilities: " + firstItemFromAbilities + ", " + secondItemFromAbilities);
+pokemonRepository.add({
+name: '',
+weight: undefined,
+height: undefined,
+abilities: [],
 });
+
+var $pokemonList = document.querySelector('ul');
+
+ function addListItem(pokemon) {
+  var listItem = document.createElement('li');
+  var button = document.createElement('button');
+  button.innerText = pokemon.name;
+  button.classList.add('pokemon-name');
+  listItem.appendChild(button);
+  $pokemonList.appendChild(listItem);
+  button.addEventListener('click', function() {
+      showDetails(pokemon)
+    })
+};
+
+function showDetails(item) {
+     console.log(item);
+ };
+
+ pokemonRepository.getAll().forEach(function(pokemon){
+    pokemonRepository.addListItem(pokemon);
+  });
