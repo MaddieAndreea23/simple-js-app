@@ -38,15 +38,15 @@ var pokemonRepository = (function () {
 
 console.log(pokemonRepository.getAll());
 pokemonRepository.add({
-name: '',
-weight: undefined,
-height: undefined,
-abilities: [],
+name: 'Rapidash',
+weight: 95,
+height: 1.7,
+abilities: ["flash-fire", "flame-body", "run-away"],
 });
 
 var $pokemonList = document.querySelector('ul');
 
- function addListItem(pokemon) {
+function addListItem(pokemon) {
   var listItem = document.createElement('li');
   var button = document.createElement('button');
   button.innerText = pokemon.name;

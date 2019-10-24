@@ -4,8 +4,20 @@
 }
 
 body{
-  font-family: 'Roboto Mono', monospace;
-  background-color: #116466;
+  background-color: black;
+}
+
+h1 {
+  font-family: 'Inconsolata', monospace;
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.pokemon-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 100px;
 }
 
 .pokemon-list__item {
@@ -14,7 +26,10 @@ body{
   justify-content: center;
 }
 
+
 button {
+  font-family: 'Macondo', cursive;
+  font-style: italic;
   background-color: #99ffff;
   color: #007267;
   border: none;
