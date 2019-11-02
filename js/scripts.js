@@ -1,6 +1,6 @@
-var pokemonRepository = (function () {
-  var repository = [];
-  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+const pokemonRepository = (function () {
+  const repository = [];
+  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   var $pokemonList = document.querySelector("ul");
 
   function loadList() {
@@ -17,15 +17,6 @@ var pokemonRepository = (function () {
     }).catch(function (e) {
       console.error(e);
     })
-  }
-
-  function add(pokemon) {
-    pokemon.abilities = pokemon.abilities || [];
-    repository.push(pokemon);
-  };
-
-  function getAll() {
-    return repository;
   };
 
   function addListItem(pokemon) {
@@ -42,21 +33,30 @@ var pokemonRepository = (function () {
 
   function showDetails(item) {
     pokemonRepository.loadDetails(item).then(function () {
-      console.log(item);   });
-  }
+      console.log(item);
+     });
+  };
+
+  function add(item) {
+    repository.push(item)
+  };
+
+  function getAll() {
+    return repository;
+  };
 
   function loadDetails(item) {
   var url = item.detailsUrl;
   return fetch(url).then(function (response) {
     return response.json();
-  }).then(function (details) {
-    item.imageUrl = details.sprites.front_default;
-    item.height = details.height;
-    item.types = Object.keys(details.types);
-  }).catch(function (e) {
-    console.error(e);
-  });
-}
+    }).then(function (details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = Object.keys(details.types);
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
 
   return {
     add: add,
@@ -67,13 +67,6 @@ var pokemonRepository = (function () {
     loadDetails: loadDetails
   };
 
-  console.log(pokemonRepository.getAll());
-  pokemonRepository.add({
-    name: "Rapidash",
-    weight: 95,
-    height: 1.7,
-    abilities: ["flash-fire", "flame-body", "run-away"]
-  });
 })();
 
 pokemonRepository.loadList().then(function() {

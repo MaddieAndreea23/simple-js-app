@@ -12,38 +12,32 @@ h1 {
   color: white;
   text-align: center;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .pokemon-list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
-
-.pokemon-list__item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 button {
-  font-family: 'Macondo', cursive;
-  font-style: italic;
-  background-color: #99ffff;
-  color: #007267;
   border: none;
   display: inline-block;
+  font-family: 'Macondo', cursive;
+  background-color: #99ffff;
+  color: #007267;
+  text-decoration: none;
   padding: 10px;
   border-radius: 3px;
   border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  transition: 0.2s opacity;
   margin: 10px 5px;
 }
 
 button:hover,
 button:focus {
   cursor: pointer;
-  opacity: 0.8;
 }
 
 @media all and (min-width: 600px) and (max-width: 900px) {
