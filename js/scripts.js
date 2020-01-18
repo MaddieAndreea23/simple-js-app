@@ -1,13 +1,17 @@
 const pokemonRepository = (function() {
   const repository = [];
-  var $modalContainer = document.querySelector('#modal-container');
-  var $pokemonList = document.querySelector("ul");
+  const $modalContainer = document.querySelector('#modal-container');
+  const $pokemonList = document.querySelector("ul");
   const apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function loadList() {
     return fetch(apiUrl)
       .then(function(response) {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw 'Something went wrong when loading the list.';
+        }
       })
       .then(function(json) {
         json.results.forEach(function(item) {
@@ -35,7 +39,7 @@ const pokemonRepository = (function() {
     pokemonRepository.loadDetails(pokemon).then(function () {
       showModal(pokemon);
     });
-  }
+  };
 
   function add(item) {
     repository.push(item);
@@ -46,10 +50,14 @@ const pokemonRepository = (function() {
   }
 
   function loadDetails(item) {
-    var url = item.detailsUrl;
+    const url = item.detailsUrl;
     return fetch(url)
       .then(function(response) {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw 'Something went wrong when loading details.';
+        }
       })
       .then(function(details) {
         item.imageUrl = details.sprites.front_default;
@@ -60,11 +68,22 @@ const pokemonRepository = (function() {
       });
   }
 
+  // handler to close the modal when clicking outside of it
+  const clickHandler = e => {
+    if (!document.getElementById('modal').contains(e.target)) hideModal();
+  }
+
+  // handler to close the modal on escape
+  const keydownHandler = e => {
+    if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) hideModal();
+  }
+
   function showModal(item) {
    $modalContainer.innerHTML = '';
 
    var modal = document.createElement('div');
    modal.classList.add('modal');
+   modal.setAttribute("id", "modal");
 
    var closeButtonElement = document.createElement('button');
    closeButtonElement.classList.add('modal-close');
@@ -87,28 +106,21 @@ const pokemonRepository = (function() {
    modal.appendChild(heightElement);
    $modalContainer.appendChild(modal);
 
-   $modalContainer.classList.add('is-visible');
- }
+    $modalContainer.classList.add('is-visible');
 
-//close the modal
- function hideModal() {
-   $modalContainer.classList.remove('is-visible');
- }
+    // Click outside of the modal to close it
+    window.addEventListener('click', clickHandler)
+    window.addEventListener('keydown', keydownHandler)
+  };
 
-//escape key
- window.addEventListener('keydown', (e) => {
-   if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
-       hideModal();
-     }
-   })
+  //close the modal
+  function hideModal() {
+    $modalContainer.classList.remove('is-visible');
+    $modalContainer.innerHTML = "";
+    window.removeEventListener('click', clickHandler);
+    window.removeEventListener('keydown', keydownHandler)
+  };
 
-// Click outside of the modal to close it
-$modalContainer.addEventListener('click', (e) => {
-  var target = e.target;
-  if (target === $modalContainer) {
-    hideModal();
-  }
-})
 
   return {
     add: add,

@@ -15,9 +15,9 @@ h1 {
   margin-bottom: 100px;
 }
 
-.pokemon-list {
+.pokemonList {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 50px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
@@ -99,7 +99,7 @@ button:focus {
 
 
 @media all and (min-width: 600px) and (max-width: 900px) {
-  .pokemon-list__item {
+  .pokemonList__item {
     align-items: flex-start;
     justify-content: flex-start;
   }
